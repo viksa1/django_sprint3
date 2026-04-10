@@ -6,7 +6,9 @@ from .models import Post, Category
 def index(request):
     """Главная страница - 5 последних публикаций"""
     posts = Post.objects.filter(
-        is_published=True, pub_date__lte=timezone.now(), category__is_published=True
+        is_published=True,
+        pub_date__lte=timezone.now(),
+        category__is_published=True,
     ).order_by("-pub_date")[:5]
 
     return render(request, "blog/index.html", {"posts": posts})
@@ -26,10 +28,14 @@ def post_detail(request, post_id):
 
 def category_posts(request, category_slug):
     """Страница категории"""
-    category = get_object_or_404(Category, slug=category_slug, is_published=True)
+    category = get_object_or_404(
+        Category, slug=category_slug, is_published=True
+    )
 
     posts = Post.objects.filter(
         category=category, is_published=True, pub_date__lte=timezone.now()
     ).order_by("-pub_date")
 
-    return render(request, "blog/category.html", {"category": category, "posts": posts})
+    return render(
+        request, "blog/category.html", {"category": category, "posts": posts}
+    )
