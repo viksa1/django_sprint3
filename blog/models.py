@@ -6,15 +6,18 @@ User = get_user_model()
 
 class Location(models.Model):
     name = models.CharField(
-    max_length=256,
-    verbose_name="Название места"
-    )
+        max_length=256,
+        verbose_name="Название места"
+    )  # ← отступ 4 пробела, закрывающая скобка на отдельной строке
     is_published = models.BooleanField(
         default=True,
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "местоположение"
@@ -26,10 +29,12 @@ class Location(models.Model):
 
 class Category(models.Model):
     title = models.CharField(
-    max_length=256,
-    verbose_name="Заголовок"
+        max_length=256,
+        verbose_name="Заголовок"
     )
-    description = models.TextField(verbose_name="Описание")
+    description = models.TextField(
+        verbose_name="Описание"
+    )
     slug = models.SlugField(
         max_length=64,
         unique=True,
@@ -44,7 +49,10 @@ class Category(models.Model):
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "категория"
@@ -56,8 +64,11 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(
-    max_length=256,
-    verbose_name="Заголовок"
+        max_length=256,
+        verbose_name="Заголовок"
+    )
+    text = models.TextField(
+        verbose_name="Текст"
     )
     pub_date = models.DateTimeField(
         verbose_name="Дата и время публикации",
@@ -67,7 +78,9 @@ class Post(models.Model):
         ),
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Автор публикации"
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Автор публикации"
     )
     location = models.ForeignKey(
         Location,
@@ -88,7 +101,10 @@ class Post(models.Model):
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "публикация"
